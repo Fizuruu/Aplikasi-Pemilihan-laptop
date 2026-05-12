@@ -43,120 +43,130 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen grid lg:grid-cols-2 bg-white">
+    <div className="min-h-screen grid lg:grid-cols-2 bg-[var(--main-bg)] overflow-hidden font-sans">
       {/* Left side: Content/Branding */}
-      <div className="hidden lg:flex flex-col justify-between p-12 bg-black text-white relative overflow-hidden">
+      <div className="hidden lg:flex flex-col justify-between p-16 bg-[var(--surface)]/50 relative border-r border-[var(--border-color)]">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-brand-primary/10 rounded-full blur-[120px]" />
+        </div>
+
         <div className="relative z-10">
-          <div className="flex items-center gap-3 mb-12">
-            <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-black">
+          <div className="flex items-center gap-4 mb-20 animate-in fade-in slide-in-from-left-4 duration-700">
+            <div className="w-12 h-12 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-2xl flex items-center justify-center text-white shadow-xl shadow-brand-primary/20">
               <MonitorSmartphone size={28} />
             </div>
-            <span className="text-2xl font-bold tracking-tight">LaptopPilih</span>
+            <span className="text-2xl font-extrabold tracking-tight text-[var(--text-primary)]">Laptop<span className="gradient-text">Pilih</span></span>
           </div>
           
-          <h2 className="text-6xl font-bold leading-[1.1] mb-6">
-            Temukan Laptop <br />
-            <span className="text-gray-500 italic font-serif">Terbaik Anda.</span>
-          </h2>
-          <p className="text-lg text-gray-400 max-w-md">
-            Sistem Pendukung Keputusan cerdas yang membantu mahasiswa memilih laptop sesuai budget dan kebutuhan perkuliahan.
-          </p>
+          <div className="space-y-6">
+            <h2 className="text-7xl font-extrabold leading-[1.05] tracking-tight text-[var(--text-primary)]">
+              Pilih Laptop <br />
+              <span className="gradient-text">Tanpa Ragu.</span>
+            </h2>
+            <p className="text-lg text-[var(--text-secondary)] max-w-md leading-relaxed">
+              Sistem Pendukung Keputusan cerdas yang membantu mahasiswa menemukan perangkat terbaik sesuai budget dan spesifikasi teknis.
+            </p>
+          </div>
         </div>
 
         <div className="relative z-10">
-          <div className="flex gap-4 mb-4">
-             {[1, 2, 3].map(i => (
-               <div key={i} className="w-12 h-1 bg-gray-800 rounded-full" />
-             ))}
-          </div>
-          <p className="text-sm font-medium text-gray-500 uppercase tracking-widest">
-            Metode SAW &bull; User-Centric Design &bull; Startup Experience
-          </p>
+           <div className="flex items-center gap-6 mb-8">
+              <div className="flex -space-x-3">
+                {[1, 2, 3, 4].map(i => (
+                  <div key={i} className="w-10 h-10 rounded-full border-2 border-[var(--main-bg)] bg-[var(--surface-lighter)] flex items-center justify-center text-xs font-bold text-[var(--text-secondary)]">
+                    U{i}
+                  </div>
+                ))}
+              </div>
+              <p className="text-sm font-medium text-[var(--text-secondary)]">Digunakan oleh 500+ Mahasiswa</p>
+           </div>
+           <div className="p-1 w-fit rounded-full bg-[var(--surface-lighter)] border border-[var(--border-color)] flex gap-2">
+              <span className="px-4 py-1.5 rounded-full bg-brand-primary/10 text-brand-primary text-[10px] font-bold uppercase tracking-wider">Metode SAW</span>
+              <span className="px-4 py-1.5 rounded-full text-[var(--text-secondary)]/50 text-[10px] font-bold uppercase tracking-wider">User Centric</span>
+           </div>
         </div>
-
-        {/* Decorative elements */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-gray-900 rounded-full opacity-50" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-gray-900 rounded-full opacity-50" />
       </div>
 
       {/* Right side: Form */}
-      <div className="flex items-center justify-center p-8 lg:p-24 bg-[#FDFCFB]">
+      <div className="flex items-center justify-center p-8 lg:p-24 relative">
+        <div className="absolute top-1/4 right-0 w-64 h-64 bg-brand-secondary/5 blur-[100px]" />
+        
         <motion.div 
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="w-full max-w-md"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="w-full max-w-md relative z-10"
         >
-          <div className="mb-10 text-center lg:text-left">
-            <h3 className="text-3xl font-bold text-gray-900 mb-2">
+          <div className="mb-12 text-center lg:text-left">
+            <h3 className="text-4xl font-bold text-[var(--text-primary)] mb-3 tracking-tight">
               {isLogin ? 'Selamat Datang' : 'Buat Akun Baru'}
             </h3>
-            <p className="text-gray-500">
-              {isLogin ? 'Masuk untuk mencari rekomendasi laptop Anda.' : 'Daftar sekarang untuk memulai perjalanan Anda.'}
+            <p className="text-[var(--text-secondary)] font-medium">
+              {isLogin ? 'Silakan masuk untuk melanjutkan navigasi.' : 'Mulai perjalanan pencarian laptop ideal Anda.'}
             </p>
           </div>
 
           {error && (
-            <div className="p-4 mb-6 bg-red-50 text-red-600 rounded-xl text-sm font-medium border border-red-100 flex items-center gap-3">
+            <div className="p-4 mb-8 bg-red-500/10 text-red-400 border border-red-500/20 rounded-xl text-sm font-medium flex items-center gap-3 animate-in fade-in zoom-in-95">
               <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <label className="text-xs font-bold uppercase tracking-widest text-gray-400">Email Address</label>
-              <div className="relative">
+              <label className="text-xs font-bold uppercase tracking-widest text-[var(--text-secondary)] ml-1">Email Address</label>
+              <div className="relative group">
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full h-14 pl-12 pr-4 bg-white border border-gray-200 rounded-2xl outline-none focus:border-black transition-all font-medium"
-                  placeholder="name@example.com"
+                  className="w-full h-14 pl-12 pr-4 bg-[var(--surface)] border border-[var(--border-color)] rounded-2xl text-[var(--text-primary)] outline-none focus:border-brand-primary/50 transition-all font-medium placeholder:text-[var(--text-secondary)]/40"
+                  placeholder="name@email.com"
                   required
                 />
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-secondary)] group-focus-within:text-brand-primary transition-colors" size={20} />
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-bold uppercase tracking-widest text-gray-400">Password</label>
-              <div className="relative">
+              <label className="text-xs font-bold uppercase tracking-widest text-[var(--text-secondary)] ml-1">Password</label>
+              <div className="relative group">
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full h-14 pl-12 pr-4 bg-white border border-gray-200 rounded-2xl outline-none focus:border-black transition-all font-medium"
+                  className="w-full h-14 pl-12 pr-4 bg-[var(--surface)] border border-[var(--border-color)] rounded-2xl text-[var(--text-primary)] outline-none focus:border-brand-primary/50 transition-all font-medium placeholder:text-[var(--text-secondary)]/40"
                   placeholder="••••••••"
                   required
                 />
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-secondary)] group-focus-within:text-brand-primary transition-colors" size={20} />
               </div>
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full h-14 bg-black text-white rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-gray-900 transition-all active:scale-[0.98] disabled:opacity-50"
+              className="btn-primary w-full h-14 mt-4 flex items-center justify-center gap-3"
             >
               {loading ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
                 <>
-                  {isLogin ? 'Masuk Sekarang' : 'Daftar Sekarang'}
+                  {isLogin ? 'Masuk Sekarang' : 'Daftar Akun'}
                   <ArrowRight size={20} />
                 </>
               )}
             </button>
           </form>
 
-          <div className="mt-8 pt-8 border-t border-gray-100 text-center">
-            <p className="text-gray-500 text-sm">
+          <div className="mt-10 pt-10 border-t border-[var(--border-color)] text-center">
+            <p className="text-[var(--text-secondary)] text-sm font-medium">
               {isLogin ? "Belum punya akun?" : "Sudah punya akun?"}
               <button
                 onClick={() => setIsLogin(!isLogin)}
-                className="ml-2 font-bold text-black hover:underline"
+                className="ml-2 text-brand-primary hover:text-brand-secondary font-bold transition-colors"
               >
-                {isLogin ? 'Daftar Gratis' : 'Masuk di sini'}
+                {isLogin ? 'Daftar Gratis' : 'Login di sini'}
               </button>
             </p>
           </div>

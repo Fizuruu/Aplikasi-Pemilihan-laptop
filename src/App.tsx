@@ -4,13 +4,14 @@
  */
 
 import { useState, useEffect, createContext, useContext } from 'react';
-import { Laptop, AlertCircle, ChevronRight, LogOut, LayoutDashboard, Database, History, User as UserIcon, MonitorSmartphone } from 'lucide-react';
+import { Laptop, AlertCircle, ChevronRight, LogOut, LayoutDashboard, Database, History, User as UserIcon, MonitorSmartphone, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import Auth from './pages/Auth';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
 import { User } from './types';
 import { cn } from './lib/utils';
+import { useTheme } from './context/ThemeContext';
 
 interface AuthContextType {
   user: User | null;
@@ -29,6 +30,7 @@ export const useAuth = () => {
 };
 
 export default function App() {
+  const { theme, toggleTheme } = useTheme();
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
   const [loading, setLoading] = useState(true);
@@ -69,61 +71,77 @@ export default function App() {
 
   return (
     <AuthContext.Provider value={{ user, token, login, logout, loading }}>
-      <div className="min-h-screen bg-[#FDFCFB] flex flex-col font-sans">
+      <div className="min-h-screen bg-[var(--main-bg)] flex flex-col font-sans transition-colors duration-300">
+        {/* Subtle Gradient Background */}
+        <div className="fixed inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand-primary/10 rounded-full blur-[120px]" />
+          <div className="absolute bottom-[0%] right-[-10%] w-[30%] h-[50%] bg-brand-secondary/10 rounded-full blur-[100px]" />
+        </div>
+
         {/* Navigation */}
-        <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center text-white">
+        <nav className="sticky top-0 z-50 bg-[var(--surface)]/80 backdrop-blur-xl border-b border-[var(--border-color)] px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-xl flex items-center justify-center text-white shadow-lg shadow-brand-primary/20">
               <MonitorSmartphone size={22} />
             </div>
             <div>
-              <h1 className="text-xl font-bold tracking-tight text-gray-900 leading-none">LaptopPilih</h1>
-              <span className="text-[10px] text-gray-400 font-medium uppercase tracking-[0.1em]">SPK System</span>
+              <h1 className="text-xl font-extrabold tracking-tight text-[var(--text-primary)] leading-none">
+                Laptop<span className="gradient-text">Pilih</span>
+              </h1>
+              <span className="text-[10px] text-[var(--text-secondary)] font-medium uppercase tracking-[0.2em]">Decision Support System</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-8">
             <button 
               onClick={() => setCurrentPage('home')}
               className={cn(
-                "flex items-center gap-2 text-sm font-medium transition-colors",
-                currentPage === 'home' ? "text-black" : "text-gray-400 hover:text-black"
+                "flex items-center gap-2 text-xs font-semibold uppercase tracking-widest transition-all",
+                currentPage === 'home' ? "text-brand-primary" : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
               )}
             >
-              <LayoutDashboard size={18} />
-              <span>Rekomendasi</span>
+              <LayoutDashboard size={16} />
+              <span>Dashboard</span>
             </button>
             <button 
               onClick={() => setCurrentPage('history')}
               className={cn(
-                "flex items-center gap-2 text-sm font-medium transition-colors",
-                currentPage === 'history' ? "text-black" : "text-gray-400 hover:text-black"
+                "flex items-center gap-2 text-xs font-semibold uppercase tracking-widest transition-all",
+                currentPage === 'history' ? "text-brand-primary" : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
               )}
             >
-              <History size={18} />
-              <span>Riwayat</span>
+              <History size={16} />
+              <span>History</span>
             </button>
             {user.role === 'admin' && (
               <button 
                 onClick={() => setCurrentPage('admin')}
                 className={cn(
-                  "flex items-center gap-2 text-sm font-medium transition-colors",
-                  currentPage === 'admin' ? "text-black" : "text-gray-400 hover:text-black"
+                  "flex items-center gap-2 text-xs font-semibold uppercase tracking-widest transition-all",
+                  currentPage === 'admin' ? "text-brand-primary" : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
                 )}
               >
-                <Database size={18} />
-                <span>Admin Panel</span>
+                <Database size={16} />
+                <span>Admin</span>
               </button>
             )}
-            <div className="h-4 w-[1px] bg-gray-200" />
-            <div className="flex items-center gap-3">
-              <div className="flex flex-col items-end mr-1">
-                <span className="text-sm font-semibold text-gray-900">{user.email.split('@')[0]}</span>
-                <span className="text-[10px] text-gray-400 uppercase font-bold tracking-wider">{user.role}</span>
+            <div className="h-4 w-[1px] bg-[var(--border-color)]" />
+            
+            <div className="flex items-center gap-4">
+              <button
+                onClick={toggleTheme}
+                className="w-10 h-10 rounded-xl border border-[var(--border-color)] flex items-center justify-center text-[var(--text-secondary)] hover:bg-brand-primary/10 hover:text-brand-primary transition-all"
+              >
+                {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+              </button>
+
+              <div className="flex flex-col items-end">
+                <span className="text-sm font-bold text-[var(--text-primary)]">{user.email.split('@')[0]}</span>
+                <span className="text-[9px] text-[var(--text-secondary)] font-bold tracking-tighter px-1.5 py-0.5 rounded bg-[var(--surface-lighter)] border border-[var(--border-color)]">{user.role.toUpperCase()}</span>
               </div>
               <button 
                 onClick={logout}
-                className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-500 hover:bg-black hover:text-white transition-all cursor-pointer"
+                className="w-10 h-10 rounded-xl border border-[var(--border-color)] flex items-center justify-center text-[var(--text-secondary)] hover:bg-red-500/10 hover:text-red-500 hover:border-red-500/20 transition-all"
               >
                 <LogOut size={18} />
               </button>
@@ -132,7 +150,7 @@ export default function App() {
         </nav>
 
         {/* Main Content */}
-        <main className="flex-1 w-full max-w-7xl mx-auto px-6 py-8">
+        <main className="flex-1 w-full max-w-7xl mx-auto px-6 py-10 relative z-10">
           <AnimatePresence mode="wait">
             {currentPage === 'home' && (
               <motion.div
@@ -163,28 +181,32 @@ export default function App() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
-                className="flex flex-col items-center justify-center h-[60vh] text-gray-400"
+                className="flex flex-col items-center justify-center h-[60vh] text-[var(--text-secondary)]"
               >
-                <History size={48} strokeWidth={1.5} className="mb-4" />
-                <h2 className="text-lg font-medium">Fitur Riwayat akan segera hadir</h2>
-                <p className="text-sm">Riwayat Anda sedang dalam proses integrasi.</p>
+                <div className="w-20 h-20 bg-[var(--surface)] border border-[var(--border-color)] rounded-3xl flex items-center justify-center mb-6">
+                  <History size={40} className="text-brand-primary" />
+                </div>
+                <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-2">History is coming soon</h2>
+                <p className="text-[var(--text-secondary)] max-w-xs text-center opacity-60">We're working on integrating your personal recommendation history.</p>
                 <button 
                   onClick={() => setCurrentPage('home')}
-                  className="mt-6 text-black font-semibold flex items-center gap-2 hover:gap-3 transition-all"
+                  className="btn-primary mt-8 flex items-center gap-2"
                 >
-                  Kembali Beranda <ChevronRight size={18} />
+                  Return to Dashboard <ChevronRight size={18} />
                 </button>
               </motion.div>
             )}
           </AnimatePresence>
         </main>
 
-        <footer className="py-8 px-6 border-t border-gray-100 flex items-center justify-between text-[11px] font-bold uppercase tracking-widest text-gray-400">
-           <span>LAPTOPPILIH &copy; 2026</span>
-           <div className="flex gap-6">
-             <a href="#" className="hover:text-black">Privacy Policy</a>
-             <a href="#" className="hover:text-black">Terms of Service</a>
-             <a href="#" className="hover:text-black">Support</a>
+        <footer className="py-10 px-6 border-t border-[var(--border-color)] flex flex-col md:flex-row items-center justify-between text-xs font-medium text-[var(--text-secondary)] opacity-80">
+           <div className="mb-4 md:mb-0">
+             <span className="font-bold text-[var(--text-primary)]">LaptopPilih</span> &copy; 2026 &bull; Made for Students
+           </div>
+           <div className="flex gap-8">
+             <a href="#" className="hover:text-[var(--text-primary)] transition-colors">Privacy Policy</a>
+             <a href="#" className="hover:text-[var(--text-primary)] transition-colors">Terms of Service</a>
+             <a href="#" className="hover:text-[var(--text-primary)] transition-colors">Help Center</a>
            </div>
         </footer>
       </div>
