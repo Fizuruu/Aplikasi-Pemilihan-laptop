@@ -86,7 +86,7 @@ export default function App() {
             </div>
             <div>
               <h1 className="text-xl font-extrabold tracking-tight text-[var(--text-primary)] leading-none">
-                Laptop<span className="gradient-text">Pilih</span>
+                Sistem<span className="gradient-text">Pilih Laptop</span>
               </h1>
               <span className="text-[10px] text-[var(--text-secondary)] font-medium uppercase tracking-[0.2em]">Decision Support System</span>
             </div>
@@ -201,7 +201,7 @@ export default function App() {
 
         <footer className="py-10 px-6 border-t border-[var(--border-color)] flex flex-col md:flex-row items-center justify-between text-xs font-medium text-[var(--text-secondary)] opacity-80">
            <div className="mb-4 md:mb-0">
-             <span className="font-bold text-[var(--text-primary)]">LaptopPilih</span> &copy; 2026 &bull; Made for Students
+             <span className="font-bold text-[var(--text-primary)]">SistemPilih Laptop</span> &copy; 2026 &bull; Made for Students
            </div>
            <div className="flex gap-8">
              <a href="#" className="hover:text-[var(--text-primary)] transition-colors">Privacy Policy</a>

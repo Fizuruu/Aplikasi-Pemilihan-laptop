@@ -1,6 +1,6 @@
 {
-  "name": "LaptopPilih - SPK Rekomendasi Laptop",
-  "description": "Sistem Pendukung Keputusan (SPK) menggunakan metode SAW untuk membantu mahasiswa menentukan laptop terbaik sesuai dengan jurusan dan aktivitas perkuliahan.",
+  "name": "Aplikasi Pemilihan Laptop",
+  "description": "Sistem Pendukung Keputusan (SPK) menggunakan metode SAW untuk membantu mahasiswa menentukan laptop terbaik sesuai dengan kebutuhan akademik.",
   "requestFramePermissions": [],
-  "majorCapabilities": []
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

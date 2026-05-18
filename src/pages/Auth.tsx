@@ -55,7 +55,7 @@ export default function Auth() {
             <div className="w-12 h-12 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-2xl flex items-center justify-center text-white shadow-xl shadow-brand-primary/20">
               <MonitorSmartphone size={28} />
             </div>
-            <span className="text-2xl font-extrabold tracking-tight text-[var(--text-primary)]">Laptop<span className="gradient-text">Pilih</span></span>
+            <span className="text-2xl font-extrabold tracking-tight text-[var(--text-primary)]">Sistem<span className="gradient-text">Pilih Laptop</span></span>
           </div>
           
           <div className="space-y-6">
